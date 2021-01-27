@@ -34,4 +34,14 @@ public class WeatherClient {
             return Optional.empty();
         }
     }
+
+    public Optional<WeatherResponse> fetchWeather(String city) {
+        var url = String.format("%s/data/2.5/weather?q=%s", weatherServiceUrl, city);
+
+        try {
+            return Optional.ofNullable(restTemplate.getForObject(url, WeatherResponse.class));
+        } catch (RestClientException e) {
+            return Optional.empty();
+        }
+    }
 }

@@ -1,12 +1,15 @@
 package example;
 
-import example.person.PersonRepository;
-import example.weather.WeatherClient;
-import example.weather.WeatherResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+
+import example.person.PersonRepository;
+import example.weather.MyWeatherResponse;
+import example.weather.WeatherClient;
+import example.weather.WeatherResponse;
 
 @RestController
 public class ExampleController {
@@ -39,5 +42,14 @@ public class ExampleController {
         return weatherClient.fetchWeather()
                 .map(WeatherResponse::getSummary)
                 .orElse("Sorry, I couldn't fetch the weather for you :(");
+    }
+
+    @GetMapping("/weather/{city}")
+    public ResponseEntity<MyWeatherResponse> weather(@PathVariable final String city) {
+        String weather = weatherClient.fetchWeather(city)
+                            .map(WeatherResponse::getSummary)
+                            .orElse("Sorry, I couldn't fetch the weather for you :(");
+        MyWeatherResponse response = new MyWeatherResponse(weather);
+        return ResponseEntity.ok(response);
     }
 }

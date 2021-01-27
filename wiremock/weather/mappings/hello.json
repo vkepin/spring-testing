@@ -1,0 +1,30 @@
+{
+	"mappings": [
+		{
+			"request": {
+				"method": "GET",
+				"url": "/data/2.5/weather?q=Paris"
+			},
+			"response": {
+				"status": 200,
+				"headers": {
+					"Content-Type": "application/json"
+				},
+				"bodyFileName": "paris.json"
+			}
+		},
+		{
+			"request": {
+				"method": "GET",
+				"url": "/data/2.5/weather?q=London"
+			},
+			"response": {
+				"status": 200,
+				"headers": {
+					"Content-Type": "application/json"
+				},
+				"bodyFileName": "london.json"
+			}
+		}
+	]
+}
